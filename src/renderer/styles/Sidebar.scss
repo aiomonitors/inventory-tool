@@ -59,7 +59,7 @@ sidebar {
 
         .routes {    
             .sidebar-item {
-                align-items: flex-end;
+                align-items: center;
                 justify-content: center;
                 width: 120px;
 
@@ -70,6 +70,7 @@ sidebar {
                 .text {
                     display: block;
                     opacity: 1;  
+                    align-self: flex-end;
                 }
             }
         }
