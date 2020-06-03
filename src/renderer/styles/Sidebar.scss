@@ -1,16 +1,54 @@
+@import './palette.scss';
+
 sidebar {
     width: 100%;
     border-right: 1px solid #72757e;
     border-radius: 2px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     height: 100vh;
     box-sizing: border-box;
     transition: all 0.5s;
     z-index: 100;
 
+    .routes {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 70%;
+
+        .sidebar-item {
+            display: flex;
+            // border: 1px solid red;
+            text-decoration: none;
+            box-sizing: border-box;
+            padding: 5px;
+            border-radius: 8px;
+
+            &.active {
+                background-color: $box-secondary;
+                color: $purple;
+
+                .text {
+                    color: $purple;
+                }
+            }
+
+            img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .text {
+                display: none;
+                color: $box-text-primary;
+                font-weight: 200;
+                font-size: 0.75rem;
+            }
+        }
+    }
     &:hover {
         width: 140px;
         background-color: #212F3C;
@@ -18,5 +56,22 @@ sidebar {
         -moz-box-shadow: 3px 6px 19px 2px rgba(0,0,0,0.50);
         box-shadow: 3px 6px 19px 2px rgba(0,0,0,0.50);
         border: none;
+
+        .routes {    
+            .sidebar-item {
+                align-items: flex-end;
+                justify-content: center;
+                width: 120px;
+
+                img {
+                    margin-right: 20px;
+                }
+    
+                .text {
+                    display: block;
+                    opacity: 1;  
+                }
+            }
+        }
     }
 }
