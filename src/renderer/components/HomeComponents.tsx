@@ -2,7 +2,7 @@ import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 import { ReleaseProduct } from '../../common/types';
 
-interface InfoBoxProps {
+type InfoBoxProps = {
     name: string;
     value: number;
     prev: number;
@@ -16,9 +16,10 @@ interface MonthTotal {
 
 export type MonthTotals = MonthTotal[];
 
-interface SalesChartProps  {
+type SalesChartProps  = {
     sales: MonthTotals;
     inventory: MonthTotals;
+    profits: MonthTotals;
 };
 
 /**
@@ -26,12 +27,13 @@ interface SalesChartProps  {
  * Represents an informational box on the Home route
  * Used to show inventory, sales, and total profits
  */
-export const InfoBox: React.FunctionComponent<InfoBoxProps> = ({ 
-    name, 
-    value, 
-    prev, 
-    pos 
-}) => {
+export const InfoBox = (props: InfoBoxProps) => {
+    const {
+        name, 
+        value, 
+        prev, 
+        pos 
+    } = props;
     const className = `info-box ${pos ? 'pos' : 'neg'}`;
 
     return (
@@ -60,21 +62,26 @@ export const InfoBox: React.FunctionComponent<InfoBoxProps> = ({
  * # AnalyticsChart
  * Displays information on the total sales and inventory by month
  */
-export const AnalyticsChart: React.FunctionComponent<SalesChartProps> = ({ sales, inventory }) => {
+export const AnalyticsChart = (props: SalesChartProps) => {
+    const { sales, inventory, profits } = props;
     const salesData = sales.map((s: MonthTotal) => {
         return {
             x: s.month,
             y: s.value
         };
     });
-
     const inventoryData = inventory.map((s: MonthTotal) => {
         return {
             x: s.month,
             y: s.value,
         }
+    });
+    const profitData = profits.map((s: MonthTotal) => {
+        return {
+            x: s.month,
+            y: s.value,
+        }
     })
-
     const chartSeries = [
         {
             data: salesData,
@@ -85,9 +92,13 @@ export const AnalyticsChart: React.FunctionComponent<SalesChartProps> = ({ sales
             data: inventoryData,
             name: 'Inventory',
             type: 'area',
+        },
+        {
+            data: profitData,
+            name: 'Profits',
+            type: 'area',
         }
     ];
-
     const chartOptions = {
         chart: {
             height: "100px",
@@ -101,6 +112,13 @@ export const AnalyticsChart: React.FunctionComponent<SalesChartProps> = ({ sales
         },
         stroke: {
             curve: 'smooth',
+        },
+        fill: {
+        type: 'gradient',
+        gradient: {
+            opacityFrom: 0.3,
+            opacityTo: 0.4,
+        }
         },
     };
 
@@ -119,13 +137,14 @@ export const AnalyticsChart: React.FunctionComponent<SalesChartProps> = ({ sales
  * # ReleaseItem
  * Represents a release item on the homepage
  */
-export const ReleaseItem: React.FunctionComponent<ReleaseProduct> = ({
-    name,
-    image,
-    price,
-    SKU,
-    date
-}) => {
+export const ReleaseItem = (props: ReleaseProduct) => {
+    const {
+        name,
+        image,
+        price,
+        SKU,
+        date
+    } = props;
     return (
         <div className="release-item">
            <div className="info-container">

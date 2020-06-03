@@ -43,6 +43,25 @@ const Home: React.FunctionComponent = () => {
         },
     ];
 
+    const profits: MonthTotals = [
+        {
+            month: 'Jan',
+            value: 200
+        },
+        {
+            month: 'Feb',
+            value: 400,
+        },
+        {
+            month: 'Mar',
+            value: 800,
+        },
+        {
+            month: 'Apr',
+            value: 1000
+        },
+    ];
+
     const exampleReleases: ReleaseProduct[] = [
         {
             name: 'Nike Air Max 95 GREEDY 2.0',
@@ -90,7 +109,7 @@ const Home: React.FunctionComponent = () => {
                 />
             </div>
             <div className="bottom-content">
-                <AnalyticsChart sales={sales} inventory={inventory} />
+                <AnalyticsChart sales={sales} inventory={inventory} profits={profits} />
                 <div className="releases-container">
                     <div className="title">Upcoming Releases</div>
                     <div className="content">
