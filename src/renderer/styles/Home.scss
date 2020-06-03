@@ -38,10 +38,10 @@
             border-radius: 10px;
             box-sizing: border-box;
             padding: 10px 10px 10px;
-            overflow-y: hidden;
+            overflow-y: auto;
 
             .title {
-                font-size: 1.75rem;
+                font-size: 1.25rem;
                 color: white;
                 font-weight: 600;
                 margin-bottom: 10px;
@@ -51,6 +51,7 @@
                 width: 100%;
                 background-color: $box-secondary;
                 border-radius: 10px;
+                border-left: 5px solid $purple;
                 box-sizing: border-box;
                 padding: 10px 15px 10px;
                 display: flex;
