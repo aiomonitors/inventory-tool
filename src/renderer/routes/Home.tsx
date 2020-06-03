@@ -1,5 +1,6 @@
 import React from 'react';
-import { InfoBox, AnalyticsChart, MonthTotals } from '../components/HomeComponents';
+import { InfoBox, AnalyticsChart, MonthTotals, ReleaseItem } from '../components/HomeComponents';
+import { ReleaseProduct } from '../../common/types';
 
 import '../styles/Home.scss';
 
@@ -42,6 +43,30 @@ const Home: React.FunctionComponent = () => {
         },
     ];
 
+    const exampleReleases: ReleaseProduct[] = [
+        {
+            name: 'Nike Air Max 95 GREEDY 2.0',
+            image: 'https://i.imgur.com/9LPuorG.png',
+            price: 190,
+            SKU: 'CJ0589-001',
+            date: 'June 8th'
+        },
+        {
+            name: 'Nike Air Jordan 6 HARE',
+            image: 'https://i.imgur.com/SEWj1ty.png',
+            price: 190,
+            SKU: 'CT8529-062',
+            date: 'June 5th'
+        },
+        {
+            name: 'Nike Air Jordan 3 ANIMAL INSTINCT',
+            image: 'https://i.imgur.com/5wtHOGV.jpg',
+            price: 225,
+            SKU: 'CV3583-003',
+            date: 'June 6th'
+        }
+    ];
+
     return (
         <main className="main">
             <div className="top-content">
@@ -66,6 +91,16 @@ const Home: React.FunctionComponent = () => {
             </div>
             <div className="bottom-content">
                 <AnalyticsChart sales={sales} inventory={inventory} />
+                <div className="releases-container">
+                    <div className="title">Upcoming Releases</div>
+                    <div className="content">
+                        {
+                            exampleReleases.map((r) => {
+                                return <ReleaseItem {...r} />
+                            })
+                        }
+                    </div>
+                </div>
             </div>  
         </main>
     )

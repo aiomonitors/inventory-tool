@@ -30,6 +30,54 @@
             width: 620px;
             border-radius: 10px;
         }
+
+        .releases-container {
+            width: 400px;
+            height: 387px;
+            background-color: $box-background;
+            border-radius: 10px;
+            box-sizing: border-box;
+            padding: 10px 10px 10px;
+            overflow-y: hidden;
+
+            .title {
+                font-size: 1.75rem;
+                color: white;
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+
+            .release-item {
+                width: 100%;
+                background-color: $box-secondary;
+                border-radius: 10px;
+                box-sizing: border-box;
+                padding: 10px 15px 10px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 8px;
+
+                .info-container {
+                    color: white;
+                    font-weight: 300;
+                    
+                    .name {
+                        color: $green;
+                        font-weight: 600;
+                    }
+                    .price {
+                        color: $purple;
+                        font-weight: 500;
+                    }
+                }
+                img {
+                    height: 80px;
+                    width: 80px;
+                    border-radius: 5px;
+                }
+            }
+        }
     }
 
     .info-box {

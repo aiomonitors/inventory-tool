@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
+import { ReleaseProduct } from '../../common/types';
 
 interface InfoBoxProps {
     name: string;
@@ -25,7 +26,12 @@ interface SalesChartProps  {
  * Represents an informational box on the Home route
  * Used to show inventory, sales, and total profits
  */
-export const InfoBox: React.FunctionComponent<InfoBoxProps> = ({ name, value, prev, pos }) => {
+export const InfoBox: React.FunctionComponent<InfoBoxProps> = ({ 
+    name, 
+    value, 
+    prev, 
+    pos 
+}) => {
     const className = `info-box ${pos ? 'pos' : 'neg'}`;
 
     return (
@@ -84,7 +90,7 @@ export const AnalyticsChart: React.FunctionComponent<SalesChartProps> = ({ sales
 
     const chartOptions = {
         chart: {
-            height: 100,
+            height: "100px",
             toolbar: {
                 show: false,
             },
@@ -109,3 +115,26 @@ export const AnalyticsChart: React.FunctionComponent<SalesChartProps> = ({ sales
     )
 };
 
+/**
+ * # ReleaseItem
+ * Represents a release item on the homepage
+ */
+export const ReleaseItem: React.FunctionComponent<ReleaseProduct> = ({
+    name,
+    image,
+    price,
+    SKU,
+    date
+}) => {
+    return (
+        <div className="release-item">
+           <div className="info-container">
+               <div className="name">{ name }</div>
+               <div className="sku">{ SKU }</div>
+               <div className="price">${ price.toString().replace('$', '') }</div>
+               <div className="date">{ date }</div>
+           </div>
+           <img src={image} />
+        </div>
+    )
+};
