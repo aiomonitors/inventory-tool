@@ -1,9 +1,47 @@
 import React from 'react';
-import { InfoBox } from '../components/HomeComponents';
+import { InfoBox, AnalyticsChart, MonthTotals } from '../components/HomeComponents';
 
 import '../styles/Home.scss';
 
 const Home: React.FunctionComponent = () => {
+    const sales: MonthTotals = [
+        {
+            month: 'Jan',
+            value: 1000
+        },
+        {
+            month: 'Feb',
+            value: 2000,
+        },
+        {
+            month: 'Mar',
+            value: 2500,
+        },
+        {
+            month: 'Apr',
+            value: 4000
+        },
+    ];
+
+    const inventory: MonthTotals = [
+        {
+            month: 'Jan',
+            value: 1000
+        },
+        {
+            month: 'Feb',
+            value: 1000,
+        },
+        {
+            month: 'Mar',
+            value: 4000,
+        },
+        {
+            month: 'Apr',
+            value: 6000
+        },
+    ];
+
     return (
         <main className="main">
             <div className="top-content">
@@ -25,6 +63,9 @@ const Home: React.FunctionComponent = () => {
                     prev={2000}
                     pos={false}
                 />
+            </div>
+            <div className="bottom-content">
+                <AnalyticsChart sales={sales} inventory={inventory} />
             </div>  
         </main>
     )

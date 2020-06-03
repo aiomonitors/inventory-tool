@@ -8,12 +8,11 @@ sidebar {
     align-items: center;
     height: 100vh;
     box-sizing: border-box;
-    transition: all 1s;
-    
-    // TODO: Make this so it only happens when you hover over the actual sidebar elements, not the traffic
+    transition: all 0.5s;
+    z-index: 100;
+
     &:hover {
         width: 140px;
-        z-index: 100;
         background-color: #212F3C;
         -webkit-box-shadow: 3px 6px 19px 2px rgba(0,0,0,0.50);
         -moz-box-shadow: 3px 6px 19px 2px rgba(0,0,0,0.50);
