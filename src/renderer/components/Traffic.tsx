@@ -2,6 +2,10 @@ import React from 'react';
 import { ipcRenderer } from 'electron';
 import '../styles/Trafic.scss';
 
+/** 
+ * # Traffic
+ * The window functions (close, minimize, maximize)
+ */
 const Traffic = () => {
     const closeWindow = () => {
         ipcRenderer.send('close-main-window');

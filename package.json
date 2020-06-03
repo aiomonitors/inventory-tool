@@ -27,5 +27,12 @@
     "sass-loader": "^8.0.2",
     "typescript": "^3.9.3",
     "webpack": "~4.42.1"
+  },
+  "electronWebpack": {
+    "whiteListedModules": [
+      "undux",
+      "framer-motion",
+      "react-responsive-modal"
+    ]
   }
 }
