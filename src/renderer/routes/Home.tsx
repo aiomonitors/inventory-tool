@@ -87,7 +87,7 @@ const Home: React.FunctionComponent = () => {
     ];
 
     return (
-        <main className="main">
+        <main className="home">
             <div className="top-content">
                 <InfoBox
                     name="Inventory Value"
