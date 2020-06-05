@@ -5,3 +5,8 @@ $box-secondary: #242629;
 $green: #2cb67d;
 $red: #CB4335;
 $purple: #7f5af0;
+
+@mixin content-padding {
+    box-sizing: border-box;
+    padding: 10px 40px 10px;
+}
