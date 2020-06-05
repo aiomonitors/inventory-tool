@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { toast } from 'react-toastify';
+
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Sidebar, SidebarProps } from './components/Sidebar';
 import DragRegion from './components/DragRegion';
@@ -7,6 +9,9 @@ import Home from './routes/Home';
 import Inventory from './routes/Inventory';
 
 import './styles/index.scss';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 
 const routes: SidebarProps = {
     routes: [
