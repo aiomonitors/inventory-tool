@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { toast } from 'react-toastify';
-
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import { Sidebar, SidebarProps } from './components/Sidebar';
 import DragRegion from './components/DragRegion';
 import Home from './routes/Home';
 import Inventory from './routes/Inventory';
+
+import Store from './store/Store';
 
 import './styles/index.scss';
 import 'react-toastify/dist/ReactToastify.css';
@@ -44,13 +46,15 @@ const routes: SidebarProps = {
 }
 
 ReactDOM.render(
-    <div className="App">
-        <Router>
-            <Sidebar {...routes} />
-            <DragRegion />
-            <Route exact path="/" component={Home} />
-            <Route path="/inventory" component={Inventory} />
-        </Router>
-    </div>,
+    <Store.Container>
+        <div className="App">
+            <Router>
+                <Sidebar {...routes} />
+                <DragRegion />
+                <Route exact path="/" component={Inventory} />
+                <Route path="/inventory" component={Inventory} />
+            </Router>
+        </div>
+    </Store.Container>,
     document.getElementById('app')
 )

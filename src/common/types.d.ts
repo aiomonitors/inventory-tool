@@ -7,6 +7,7 @@ export interface ReleaseProduct {
 }
 
 export interface InventoryItem {
+    index?: string;
     name: string;
     sku: string;
     purchasePrice: number;
@@ -17,3 +18,7 @@ export interface InventoryItem {
 }
 
 export type Action = { label: string; value: string };
+
+export type StoreState = {
+    inventory: InventoryItem[];
+}
