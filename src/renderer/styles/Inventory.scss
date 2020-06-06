@@ -28,31 +28,52 @@
         @include content-padding;
         display: flex;
         justify-content: center;
+        // background-color: $box-secondary;
 
         .inventory-table {
             width: 100%;
             border-radius: 3px;
-            background-color: $box-background;
             padding: 10px;
             border-spacing:0 10px; 
             border-collapse:separate; 
 
-            thead {
+            .table-head, .table-item {
+                background-color: $box-background;
                 color: $purple;
-                font-size: 1.2rem;
-                margin-bottom: 10px;
-                line-height: 20px;
+                border-radius: 10px;
+
+                td {
+                    padding: 10px;
+                    
+                    &:first-child {
+                        border-left-style: solid none; 
+                        border-top-left-radius: 10px;
+                        border-bottom-left-radius: 10px;
+                    }
+
+                    &:last-child {
+                        border-right-style: solid none;
+                        border-bottom-right-radius: 10px;
+                        border-top-right-radius: 10px;
+                    }
+                }
             }
 
-            tr {
-                border: 1px solid white;
+            .table-item {
                 .cell {
-                    line-height: 15px;
+                    color: white;
+                    font-size: 0.8rem;
 
-                    &.border {
+                    &.product-info {
+                        color: $purple;
+                        font-weight: 500;
+                        line-height: 10px;
+                    }
+                }
+
+                td {
+                    &:first-child {
                         border-left: 5px solid $purple;
-                        border-radius: 5px;
-                        padding: 10px 10px;
                     }
                 }
             }

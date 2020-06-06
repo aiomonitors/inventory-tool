@@ -1,25 +1,52 @@
 import React from 'react';
 import Modal from 'react-responsive-modal';
-import Select from 'react-select';
+import { TableItem } from '../components/InvComponents';
+import { InventoryItem } from '../../common/types';
 
 import '../styles/Inventory.scss';
-
-type Action = { label: string; value: string };
 
 export default class Inventory extends React.Component<{}, {
     modalOpen: boolean;
 }> {
+  items: InventoryItem[];
     constructor(props: {}) {
         super(props);
         this.state = {
             modalOpen: false
         }
+        this.items = [
+          {
+            name: 'Jordan 1 Spiderman',
+            sku: 'CHDHD',
+            size: '8',
+            purchasePrice: 175,
+            marketPrice: 400
+          },
+          {
+            name: 'Jordan 1 Spiderman',
+            sku: 'CHDHD',
+            size: '8',
+            purchasePrice: 175
+          },
+          {
+            name: 'Jordan 1 Spiderman',
+            sku: 'CHDHD',
+            size: '8',
+            purchasePrice: 175,
+            marketPrice: 400,
+            category: 'Shoes'
+          }
+        ]
 
         this.openAddModal = this.openAddModal.bind(this);
         this.closeAddModal = this.closeAddModal.bind(this);
     }
 
     render() {
+      const tableItems = this.items.map((i) => {
+        return <TableItem {...i} />
+      });
+
         return (
             <main className="inventory-page">
                 <div className="top-content">
@@ -78,120 +105,7 @@ export default class Inventory extends React.Component<{}, {
                                 </td>
                             </tr>
                         </thead>
-                        <tr className='row'>
-          <td>
-            <div className='cell border'>
-              <p>Jordan 1 Court Purple</p>
-              <p className='category'>Shoes</p>
-            </div>
-          </td>
-          <td>
-            <div className='cell'>
-              <span>
-                7.5
-              </span>
-            </div>
-          </td>
-          <td>
-            <div className='cell'>
-              <span>
-                CDHGKJA
-              </span>
-            </div>
-          </td>
-          <td>
-            <div className='cell'>
-              <span>
-                $175
-              </span>
-            </div>
-          </td>
-          <td>
-            <div className='cell'>
-              <span>
-                $200
-              </span>
-            </div>
-          </td>
-          <td>
-            <div className='cell'>
-              <Select
-                className='select-container'
-                value={{value: 'title', label: 'Actions'}}
-                onChange={(e: Action) => {console.log(e.value)}}
-                options={[
-                  {
-                    value: 'title', label: 'Actions'
-                  },
-                  {
-                    value: 'edit', label: 'Edit'
-                  },
-                  {
-                    value: 'delete', label: 'Delete'
-                  }
-                ]}
-              />
-            </div>
-          </td>
-        </tr>
-        
-        <tr className='row'>
-          <td>
-            <div className='cell border'>
-              <p>Jordan 1 Court Purple</p>
-              <p className='category'>Shoes</p>
-            </div>
-          </td>
-          <td>
-            <div className='cell'>
-              <span>
-                7.5
-              </span>
-            </div>
-          </td>
-          <td>
-            <div className='cell'>
-              <span>
-                CDHGKJA
-              </span>
-            </div>
-          </td>
-          <td>
-            <div className='cell'>
-              <span>
-                $175
-              </span>
-            </div>
-          </td>
-          <td>
-            <div className='cell'>
-              <span>
-                $200
-              </span>
-            </div>
-          </td>
-          <td>
-            <div className='cell'>
-              <Select
-                className='select-container'
-                value={{value: 'title', label: 'Actions'}}
-                onChange={(e: Action) => {console.log(e.value)}}
-                options={[
-                  {
-                    value: 'title', label: 'Actions'
-                  },
-                  {
-                    value: 'edit', label: 'Edit'
-                  },
-                  {
-                    value: 'delete', label: 'Delete'
-                  }
-                ]}
-              />
-            </div>
-          </td>
-        </tr>
-        
+                        { tableItems }
                     </table>
                 </div>
 
