@@ -10,3 +10,17 @@ $purple: #7f5af0;
     box-sizing: border-box;
     padding: 10px 40px 10px;
 }
+
+@mixin table-row-border {
+    &:first-child {
+        border-left-style: solid none; 
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
+    &:last-child {
+        border-right-style: solid none;
+        border-bottom-right-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+}
