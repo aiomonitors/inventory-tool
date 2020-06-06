@@ -16,6 +16,11 @@ export const TableItem = (props: InventoryItem) => {
     return (
         <tr className="table-item">
             <td>
+                <div className="cell">
+                    <img src={ image || "https://img.icons8.com/ultraviolet/100/000000/no-image.png" } className="cell-image" />
+                </div>
+            </td>
+            <td>
                 <div className="cell border product-info">
                     <p>{ name }</p>
                     <p className="category">{ category }</p>
@@ -45,7 +50,7 @@ export const TableItem = (props: InventoryItem) => {
                 <Select
                     className='select-container'
                     value={{value: 'title', label: 'Actions'}}
-                    onChange={(e: Action) => {console.log(e.value)}}
+                    onChange={(e) => {console.log(e)}}
                     options={[
                     {
                         value: 'title', label: 'Actions'

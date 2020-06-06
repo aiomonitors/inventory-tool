@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-responsive-modal';
+import { InfoBox } from '../components/HomeComponents';
 import { TableItem } from '../components/InvComponents';
 import Store from '../store/Store';
-import { getInventory } from '../store/StoreFuncs';
+import { getInventory, addItem  } from '../store/StoreFuncs';
 
 import '../styles/Inventory.scss';
 
@@ -10,6 +11,7 @@ const Inventory = () => {
     const [ addModalOpen, setAddModalOpen ] = useState(false);
     const store = Store.useStore();
     const [ items, setItems ] = useState(getInventory(store));
+    const inventoryTotal = store.get('inventoryTotal');
     const tableItems = items.map((i) => {
         return <TableItem {...i} />
     });
@@ -25,11 +27,31 @@ const Inventory = () => {
         setItems(getInventory(store));
     }, [ store.get('inventory') ]);
 
+    useEffect(() => {
+        setTimeout(() => {
+            addItem(store,
+                {
+                  name: 'Jordan 1 Spiderman',
+                  sku: 'CHDHD',
+                  size: '8',
+                  purchasePrice: 175,
+                  marketPrice: 400,
+                  category: 'Shoes'
+                })
+        }, 3000)
+    }, [])
+
     return (
         <main className="inventory-page">
             <div className="top-content">
                 <div className="info-container">
-                    INFO SHOULD GO HERE
+                    <InfoBox
+                        name="Inventory Value"
+                        value={inventoryTotal}
+                        prev={2000}
+                        pos={true}
+                        small
+                    />
                 </div>
                 <div className="button-container">
                     <button className="modal-open-button" onClick={openAddModal}>Add Sale</button>
@@ -39,6 +61,13 @@ const Inventory = () => {
                 <table className="inventory-table">
                     <thead className="table-head">    
                         <tr className="row">
+                            <td>
+                                <div className="cell">
+                                    <span>
+                                        Image
+                                    </span>
+                                </div>
+                            </td>
                             <td>
                                 <div className="cell">
                                     <span>
@@ -83,7 +112,9 @@ const Inventory = () => {
                             </td>
                         </tr>
                     </thead>
-                    { tableItems }
+                    <tbody className="table-body">
+                        { tableItems }
+                    </tbody>
                 </table>
             </div>
 

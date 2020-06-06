@@ -1,3 +1,5 @@
+@import './palette.scss';
+
 body {
     padding: 0;
     margin: 0 auto;
@@ -60,4 +62,75 @@ main {
       margin-top: 0%;
       height: 100%;
     }
+}
+
+.info-box {
+  width: 250px;
+  height: 120px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: $box-background;
+  padding: 10px 30px 10px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &.small {
+    width: 200px;
+    height: 80px;
+
+    .title {
+        font-size: 0.9rem;
+        color: $box-text-primary;
+        font-weight: 200;
+    }
+    .value {
+        font-size: 1.1rem;
+        color: white;
+        font-weight: 600;
+    }
+    .bottom {
+      display: none;
+    }
+  }
+
+  &.pos {
+      border: 5px solid $green;
+  }
+
+  &.neg {
+      border: 5px solid $red;
+  }
+
+  .title {
+      font-size: 1.1rem;
+      color: $box-text-primary;
+      font-weight: 200;
+  }
+  .value {
+      font-size: 1.5rem;
+      color: white;
+      font-weight: 600;
+  }
+  .bottom {
+      display: flex;
+      align-items: center;
+      font-size: 1.1rem;
+
+      .arrow {
+          font-size: 1.1rem;
+          margin-right: 10px;
+      }
+      .neg {
+          color: $red;
+      }
+      .pos {
+          color: $green;
+      }
+      .prev-value {
+          color: $box-text-primary;
+          font-size: 0.75rem;
+      }
+  }
 }
