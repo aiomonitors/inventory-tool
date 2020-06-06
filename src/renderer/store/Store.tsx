@@ -8,7 +8,8 @@ const initialState: types.StoreState = {
           sku: 'CHDHD',
           size: '8',
           purchasePrice: 175,
-          marketPrice: 400
+          marketPrice: 400,
+          image: 'https://stockx.imgix.net/Air-Jordan-1-Retro-High-Pine-Green-Black-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&auto=format,compress&q=90&dpr=2&trim=color&updated_at=1581447019'
         },
         {
           name: 'Jordan 1 Spiderman',
@@ -25,6 +26,6 @@ const initialState: types.StoreState = {
           category: 'Shoes'
         }
     ],
+    inventoryTotal: 0
 }
-
 export default createConnectedStore(initialState);
