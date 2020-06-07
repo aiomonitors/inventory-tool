@@ -23,6 +23,8 @@ export type Action = { label: string; value: string };
 export type StoreState = {
     inventory: InventoryItem[];
     inventoryTotal: number;
+    potentialProfits: number;
+    totalSpent: number;
 }
 
 
@@ -42,6 +44,7 @@ export type DataManager = {
     getInventory(): InventoryItem[];
     addInventoryItem(items: InventoryItem | InventoryItem[]): void;
     deleteInventoryItem(index: string): void;
+    getInventoryPotentialProfit(): number;
 }
 
 
