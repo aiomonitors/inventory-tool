@@ -3,14 +3,17 @@
 import { app, BrowserWindow, ipcMain } from 'electron'
 import * as path from 'path'
 import { format as formatUrl } from 'url'
+import { data } from './classes/data';
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 // global reference to mainWindow (necessary to prevent window from being garbage collected)
 let mainWindow: BrowserWindow | null;
 
+data.loadMemory();
+
 function createMainWindow() {
-  const window = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1200, 
     height: 600, 
     resizable: false, 
@@ -23,20 +26,23 @@ function createMainWindow() {
     });
 
   if (isDevelopment) {
-    window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
+    mainWindow.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`)
   }
   else {
-    window.loadURL(formatUrl({
+    mainWindow.loadURL(formatUrl({
       pathname: path.join(__dirname, 'index.html'),
       protocol: 'file',
       slashes: true
     }))
   }
 
-  window.on('closed', () => {
+  mainWindow!.webContents.on('did-finish-load', () => {
+    mainWindow!.webContents.send('getInventory', data.getInventory());
+  })
+
+  mainWindow.on('closed', () => {
     mainWindow = null
   })
-  return window
 }
 
 
@@ -66,11 +72,11 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
   // on macOS it is common to re-create a window even after all windows have been closed
   if (mainWindow === null) {
-    mainWindow = createMainWindow()
+    createMainWindow()
   }
 })
 
 // create main BrowserWindow when electron is ready
 app.on('ready', () => {
-  mainWindow = createMainWindow()
+  createMainWindow()
 })
