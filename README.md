@@ -6,9 +6,9 @@ Easily view upcoming releases as well as sitelists straight from the app.
 
 ## To-Do
 - [ ] Finish UI
-    - [ ] Setup Undux Store
+    - [x] Setup Undux Store
 - [ ] Functionality for the backend
-    - [ ] Setup storage files
+    - [x] Setup storage files
     - [ ] StockX Login
     - [ ] Goat Login
     - [ ] Shipping sites
