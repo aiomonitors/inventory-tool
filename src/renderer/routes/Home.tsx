@@ -1,10 +1,14 @@
 import React from 'react';
+import Store from '../store/Store';
 import { InfoBox, AnalyticsChart, MonthTotals, ReleaseItem } from '../components/HomeComponents';
 import { ReleaseProduct } from '../../common/types';
 
 import '../styles/Home.scss';
 
 const Home: React.FunctionComponent = () => {
+    const store = Store.useStore();
+    const inventoryTotal = store.get('inventoryTotal');
+
     const sales: MonthTotals = [
         {
             month: 'Jan',
@@ -91,7 +95,7 @@ const Home: React.FunctionComponent = () => {
             <div className="top-content">
                 <InfoBox
                     name="Inventory Value"
-                    value={10000}
+                    value={inventoryTotal}
                     prev={2000}
                     pos={true}
                 />

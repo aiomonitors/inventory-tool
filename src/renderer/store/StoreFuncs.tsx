@@ -22,4 +22,28 @@ export const calculateInventoryValue = (store: undux.Store<types.StoreState>) =>
         total += item.marketPrice ? item.marketPrice : 0;
     }
     store.set('inventoryTotal')(total);
-}
+};
+
+export const calculatePotentialProfits = (store: undux.Store<types.StoreState>): void => {
+    let total = 0;
+    const inv = store.get('inventory');
+    for (const i of inv) {
+        total += i.marketPrice! - i.purchasePrice;
+    }
+    store.set('potentialProfits')(total);
+};
+
+export const calculateTotalSpent = (store: undux.Store<types.StoreState>): void => {
+    let total = 0;
+    const inv = store.get('inventory');
+    for (const i of inv) {
+        total +=  +i.purchasePrice;
+    }
+    store.set('totalSpent')(total);
+};
+
+export const calculateTotals = (store: undux.Store<types.StoreState>) => {
+    calculateInventoryValue(store);
+    calculatePotentialProfits(store);
+    calculateTotalSpent(store);
+};

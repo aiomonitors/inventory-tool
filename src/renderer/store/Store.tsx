@@ -3,6 +3,8 @@ import * as types from '../../common/types';
 
 const initialState: types.StoreState = {
     inventory: [],
-    inventoryTotal: 0
+    inventoryTotal: 0,
+    potentialProfits: 0,
+    totalSpent: 0,
 }
 export default createConnectedStore(initialState);

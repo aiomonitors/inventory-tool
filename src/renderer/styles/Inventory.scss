@@ -9,6 +9,15 @@
         align-items: center;
         justify-content: space-between;
 
+        .info-container {
+            width: 80%;
+            display: flex;
+            
+            div {
+                margin-right: 10px;
+            }
+        }
+
         .modal-open-button {
             background-color: $box-background;
             color: $purple;
@@ -26,6 +35,7 @@
         width: 100%;
         height: 80%;
         @include content-padding;
+        margin-top: -10px;
         display: flex;
         justify-content: center;
         // background-color: $box-secondary;
@@ -59,7 +69,8 @@
                     &.product-info {
                         color: $purple;
                         font-weight: 500;
-                        line-height: 10px;
+                        line-height: 15px;
+                        width: 250px;
                     }
 
                     .cell-image {
@@ -70,7 +81,7 @@
                 }
 
                 .select-container {
-                    font-size: 0.75em;
+                    font-size: 0.6em;
                 }
 
                 td {
@@ -92,15 +103,17 @@
     background: $box-background;
     max-width: 600px;
     width: 100%;
-    height: 400px;
+    height: 500px;
     border-radius: 10px;
 
     .inventory-add-modal {
         width: 100%;
-        border: 1px solid red;
+        height: 100%;
+        // border: 1px solid red;
         @include content-padding;
         display: flex;
         align-items: center;
+        justify-content: center;
         flex-direction: column;
 
         .selector {
@@ -141,8 +154,9 @@
 
         .body {
             margin-top: 10px;
+            @include flex-column;
             .stockx-finder {    
-                border: 1px solid blue;
+                // border: 1px solid blue;
                 width: 500px;
                 padding: 10px 0 10px;
                 display: flex;
@@ -156,16 +170,107 @@
                         @include input-bottom-border;
                         color: $box-text-primary;
                         text-align: center;
-                        padding: 5px 0 5px;
-                        background-color: transparent;
                         font-weight: 600;
                     }
                 }
 
                 .selector-wrapper {
                     width: 90%;
-                    border: 1px solid $green;
+                    // border: 1px solid $green;
                     margin-top: 10px;
+
+                    .stockx-finder-select {
+                        color: $green;
+                    }
+                }
+            }
+
+            .add-btn {
+                color: white;
+                background-color: $purple;
+                @include btn-style;
+                width: 100px;
+                padding: 10px 10px;
+            }
+
+            .error-message {
+                margin-top: 5px;
+                color: $red;
+                font-size: 10px;
+                font-weight: 600;
+                width: 50%;
+            }
+        }
+
+        .add-form {
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            // border: 1px solid green;
+
+            .row {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 12px;
+
+                .input {
+                    @include input-rounded-border($padding: 8px);
+                    text-align: center;
+                    font-weight: 500;
+                    color: white;
+                    
+                    &.full {
+                        width: 100%;
+                    }
+                    &.half {
+                        width: 48%;
+                    }
+                    &-disabled {
+                        display: none;
+                    }
+                }
+
+                .marketPrice-container {
+                    width: 50%;
+                    display: flex;
+                    .checkbox-container {
+                        display: flex;
+                        flex-direction: column;
+                        &-inline {
+                            font-size: 12px;
+                            flex-direction: row;
+                            color: white;
+                            align-items: center;
+                            input {
+                                width: 30px
+                            }
+                        }
+                        label {
+                            font-size: 10px;
+                            color: white;
+                        }
+                    }
+                    input {
+                        width: 60%;
+                        margin-left: 10px;
+                    }
+                }
+
+                &.image-input {
+                    width: 90%;
+
+                    .input-image {
+                        width: 70px;
+                        height: 100%;
+                    }
+
+                    input {
+                        width: calc(100% - 100px);
+                    }
                 }
             }
         }

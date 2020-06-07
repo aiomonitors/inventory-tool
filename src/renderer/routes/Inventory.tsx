@@ -18,6 +18,8 @@ const Inventory = () => {
     const store = Store.useStore();
     const [ items, setItems ] = useState(getInventory(store));
     const inventoryTotal = store.get('inventoryTotal');
+    const potentialProfits = store.get('potentialProfits');
+    const totalSpent = store.get('totalSpent');
     const tableItems = items.map((i) => {
         return <TableItem {...i} />
     });
@@ -76,9 +78,23 @@ const Inventory = () => {
                         pos={true}
                         small
                     />
+                    <InfoBox
+                        name="Potential Profits"
+                        value={potentialProfits}
+                        prev={2000}
+                        pos={true}
+                        small
+                    />
+                    <InfoBox
+                        name="Total Spent"
+                        value={totalSpent}
+                        prev={2000}
+                        pos={true}
+                        small
+                    />
                 </div>
                 <div className="button-container">
-                    <button className="modal-open-button" onClick={openAddModal}>Add Sale</button>
+                    <button className="modal-open-button" onClick={openAddModal}>Add Item</button>
                 </div>
             </div>
             <div className="bottom-content">
@@ -155,7 +171,9 @@ const Inventory = () => {
                 }}
                 animationDuration={1000}
             >
-                <AddModal />
+                <AddModal 
+                    closeModal={closeAddModal}
+                />
             </Modal>
             
         </main>
