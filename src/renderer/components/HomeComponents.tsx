@@ -7,6 +7,7 @@ type InfoBoxProps = {
     value: number;
     prev: number;
     pos: boolean;
+    small?: boolean;
 };
 
 interface MonthTotal {
@@ -32,9 +33,10 @@ export const InfoBox = (props: InfoBoxProps) => {
         name, 
         value, 
         prev, 
-        pos 
+        pos,
+        small 
     } = props;
-    const className = `info-box ${pos ? 'pos' : 'neg'}`;
+    const className = `info-box ${small ? ' small' : ''} ${pos ? 'pos' : 'neg'}`;
 
     return (
         <div className={className}>

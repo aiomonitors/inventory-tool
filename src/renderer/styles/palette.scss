@@ -24,3 +24,10 @@ $purple: #7f5af0;
         border-top-right-radius: 10px;
     }
 }
+
+@mixin input-bottom-border ($color: #94a1b2) {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid $color;
+}
