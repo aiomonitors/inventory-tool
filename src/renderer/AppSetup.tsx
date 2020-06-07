@@ -8,6 +8,11 @@ type Props = {
     children: JSX.Element;
 }
 
+/**
+ * # AppSetup
+ * This sets up the app when it loads
+ * Also defines functions that should run when a value of the state changes
+ */
 const AppSetup = (props: Props) => {
     const { children } = props;
     const store = Store.useStore();
@@ -21,7 +26,7 @@ const AppSetup = (props: Props) => {
     }, []);
 
     useEffect(() => {
-        StoreFuncs.calculateInventoryValue(store);
+        StoreFuncs.calculateTotals(store);
     }, [ store.get('inventory') ]);
 
     return (
