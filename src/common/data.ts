@@ -92,5 +92,13 @@ export const data: types.DataManager = {
     deleteInventoryItem: (index: String): void => {
         inventoryStorage = inventoryStorage.filter((item) => item.index !== index);
         fs.writeFileSync(inventoryPath, JSON.stringify(inventoryStorage));
+    },
+
+    getInventoryPotentialProfit: (): number => {
+        let total = 0;
+        for (const i of inventoryStorage) {
+            total += i.marketPrice! - i.purchasePrice;
+        }
+        return total;
     }
 }

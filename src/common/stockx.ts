@@ -37,7 +37,6 @@ export class StockX {
     }
 
     public async getSearchItems(query: string): Promise<InventoryItem[]> {
-        console.log(query)
         const res: Response = await request.get(`${this.baseURL}/browse?&_search=${query}&dataType=product`, {
             headers: {
                 Host: 'stockx.com',
@@ -58,7 +57,7 @@ export class StockX {
             const items = body.Products.map((i: StockXProduct): InventoryItem => {
                 return {
                     name: i.title,
-                    sku: i.styleId,
+                    sku: i.styleId || i.tickerSymbol,
                     marketPrice: i.market.averageDeadstockPrice,
                     purchasePrice: 0,
                     size: '',
