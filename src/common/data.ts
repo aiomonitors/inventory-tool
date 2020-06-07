@@ -1,7 +1,8 @@
 import * as electron from 'electron';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as types from '../../common/types';
+import { v4 as uuidv4 } from 'uuid';
+import * as types from './types';
 
 let dataPath: string;
 let inventoryPath: string;
@@ -73,8 +74,12 @@ export const data: types.DataManager = {
      */
     addInventoryItem: (items: types.InventoryItem | types.InventoryItem[]): void => {
         if(Array.isArray(items)) {
+            for (const item of items) {
+                item.index = uuidv4();
+            }
             inventoryStorage = inventoryStorage.concat(items);
         } else {
+            items.index = uuidv4();
             inventoryStorage.unshift(items);
         }
         fs.writeFileSync(inventoryPath, JSON.stringify(inventoryStorage));
