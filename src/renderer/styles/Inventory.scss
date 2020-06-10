@@ -82,6 +82,17 @@
 
                 .select-container {
                     font-size: 0.6em;
+                    color: $green;
+                    width: 95px;
+
+                    .select-item {
+                        &__control {
+                            background-color: $box-secondary;
+                        }
+                        &__single-value {
+                            color: $purple;
+                        }
+                    }
                 }
 
                 td {
@@ -216,6 +227,10 @@
                 justify-content: space-between;
                 align-items: center;
                 margin-bottom: 12px;
+
+                &.center {
+                    justify-content: center;
+                }
 
                 .input {
                     @include input-rounded-border($padding: 8px);

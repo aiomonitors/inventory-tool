@@ -18,6 +18,10 @@ export interface InventoryItem {
     autoSync?: boolean;
 }
 
+export interface InventoryItemForm extends InventoryItem {
+    quantity: number;
+}
+
 export type Action = { label: string; value: string };
 
 export type StoreState = {
@@ -27,7 +31,35 @@ export type StoreState = {
     totalSpent: number;
 }
 
+export interface BalanceRecord {
+    value: number;
+    timestamp: number;
+}
 
+export interface BalanceFile {
+    inventory: BalanceRecord[];
+    sales: BalanceRecord[];
+}
+
+// Shipping types
+export interface Courier {
+    code: string;
+    name: string;
+}
+
+export interface ShipmentCheckpoints {
+    courier: Courier;
+    location: string;
+    message: string;
+    status: string;
+    time: string;
+}
+
+export interface Shipment {
+    tracking: string;
+    checkpoints: ShipmentCheckpoints[];
+    status: 'In Transit' | 'Processed' | 'Delivered' | 'N/A/';
+}
 
 // DataManager stuff
 export type Settings = {
@@ -45,6 +77,9 @@ export type DataManager = {
     addInventoryItem(items: InventoryItem | InventoryItem[]): void;
     deleteInventoryItem(index: string): void;
     getInventoryPotentialProfit(): number;
+    syncInventoryPrices(): Promise<InventoryItem[]>;
+    updateInventoryMemory(): void;
+    updateBalanceMemory(): void
 }
 
 

@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import * as types from './types';
+import { StockX } from './stockx';
 
 let dataPath: string;
 let inventoryPath: string;
@@ -11,6 +12,8 @@ let salesPath: string;
 let inventoryStorage: types.InventoryItem[];
 let settingStorage: types.Settings;
 let salesStorage: [];
+let balancePath: string;
+let balanceStorage: types.BalanceFile;
 const dev = true;
 
 export const data: types.DataManager = {
@@ -21,25 +24,33 @@ export const data: types.DataManager = {
             dataPath = (electron.app || electron.remote.app).getPath('userData');
         }
         inventoryPath = path.join(dataPath, 'inventory.json');
-        console.log(inventoryPath);
         salesPath = path.join(dataPath, 'sales.json');
         settingsPath = path.join(dataPath, 'settings.json');
-        if(!fs.existsSync(salesPath)) {
+        balancePath = path.join(dataPath, 'balances.json');
+
+        if (!fs.existsSync(salesPath)) {
             fs.writeFileSync(salesPath, '[]');
         }
-        if(!fs.existsSync(settingsPath)) {
+        if (!fs.existsSync(settingsPath)) {
             fs.writeFileSync(settingsPath, JSON.stringify({
                 stockxEmail: '',
                 stockxPassword: '',
             }));
         }
-        if(!fs.existsSync(inventoryPath)) {
+        if (!fs.existsSync(inventoryPath)) {
             fs.writeFileSync(inventoryPath, '[]');
+        }
+        if (!fs.existsSync(balancePath)) {
+            fs.writeFileSync(balancePath, JSON.stringify({
+                inventory: [],
+                sales: []
+            }));
         }
         
         inventoryStorage = JSON.parse(fs.readFileSync(inventoryPath).toString());
         settingStorage = JSON.parse(fs.readFileSync(settingsPath).toString());
         salesStorage = JSON.parse(fs.readFileSync(salesPath).toString());
+        balanceStorage = JSON.parse(fs.readFileSync(balancePath).toString());
     },
 
     /**
@@ -74,12 +85,15 @@ export const data: types.DataManager = {
      */
     addInventoryItem: (items: types.InventoryItem | types.InventoryItem[]): void => {
         if(Array.isArray(items)) {
-            for (const item of items) {
-                item.index = uuidv4();
-            }
-            inventoryStorage = inventoryStorage.concat(items);
+            const itemsWithIndex = items.map(newItem => { 
+                newItem.index = Math.floor(Math.random() * 12938109381093).toString();
+                return newItem;
+            });
+            console.log(itemsWithIndex);
+            inventoryStorage.unshift(...itemsWithIndex);
         } else {
-            items.index = uuidv4();
+            delete items.index;
+            items.index = Math.floor(Math.random() * 12318927319872391).toString();
             inventoryStorage.unshift(items);
         }
         fs.writeFileSync(inventoryPath, JSON.stringify(inventoryStorage));
@@ -100,5 +114,37 @@ export const data: types.DataManager = {
             total += i.marketPrice! - i.purchasePrice;
         }
         return total;
+    },
+
+    syncInventoryPrices: async (): Promise<types.InventoryItem[]> => {
+        const before = data.getInventoryPotentialProfit();
+        const sx = new StockX();
+        for (const i of inventoryStorage) {
+            if (i.autoSync) {
+                const sq = await sx.getSearchItems(i.sku);
+                const mp = sq[0].marketPrice;
+                if (mp !== i.marketPrice) {
+                    i.marketPrice = mp;
+                }
+            }
+        }
+        const after = data.getInventoryPotentialProfit();
+        if (before !== after) {
+            balanceStorage.inventory.unshift({
+                value: after,
+                timestamp: +new Date()
+            });
+            data.updateBalanceMemory();
+            data.updateInventoryMemory();
+        }
+        return inventoryStorage;
+    },
+
+    updateBalanceMemory: () : void => {
+        fs.writeFileSync(inventoryPath, JSON.stringify(inventoryStorage));
+    },
+
+    updateInventoryMemory: () : void => {
+        fs.writeFileSync(balancePath, JSON.stringify(balanceStorage));
     }
 }

@@ -1,13 +1,12 @@
 import React from 'react';
-import Select, { OptionsType } from 'react-select';
+import Select from 'react-select';
 
-import { Action, InventoryItem } from '../../common/types';
+import { Action, InventoryItem, InventoryItemForm } from '../../common/types';
 import Store from '../store/Store';
 import { StockX } from '../../common/stockx';
 import { ipcRenderer } from 'electron';
 import * as request from 'request-promise-native';
 
-declare const __static: string;
 /**
  * # TableItem
  * Represents an item in the inventory table
@@ -68,6 +67,7 @@ export const TableItem = (props: InventoryItem) => {
             <td>
                 <Select
                     className='select-container'
+                    classNamePrefix='select-item'
                     value={{value: 'title', label: 'Actions'}}
                     onChange={handleSelect}
                     options={[
@@ -102,8 +102,8 @@ export const AddModal = (props: AddModalProps) => {
         purchasePrice: 0,
         size: '',
         marketPrice: 0,
-        image: 'https://img.icons8.com/ultraviolet/100/000000/no-image.png'
-    } as InventoryItem);
+        image: 'https://img.icons8.com/ultraviolet/100/000000/no-image.png',
+    } as InventoryItemForm);
     const [ selectorState, setSelectorState ] = React.useState("left");
     const [ error, setError ] = React.useState("");
     const store = Store.useStore();
@@ -153,6 +153,7 @@ export const AddModal = (props: AddModalProps) => {
         }
     }
 
+    // TODO: Add quantity into this
     const addItem = async () => {
         if (error.length === 0) {
            const inv = await ipcRenderer.sendSync('add-inventory-item', formData);
@@ -247,7 +248,7 @@ const StockXFinder = (props: StockXFinderProps) => {
 }
 
 type AddFormProps = {
-    state: InventoryItem;
+    state: InventoryItemForm;
     updateFields: (key: keyof InventoryItem, value: any) => void;
     validateImage: (url: string) => boolean | Promise<boolean>;
 }
@@ -279,7 +280,6 @@ const AddForm = (props: AddFormProps) => {
         (async() => {
             const isValid = await props.validateImage(props.state.image!);
             setImgValid(isValid);
-            console.log(isValid);
         })();
     }, [ props.state.image ])
 
@@ -356,6 +356,16 @@ const AddForm = (props: AddFormProps) => {
                     className="input image" 
                     onChange={onFieldChange} 
                     value={props.state.image}
+                />
+            </div>
+            <div className="row center">
+                <input
+                    name="quantity"
+                    type="number"
+                    className="input half"
+                    onChange={onFieldChange}
+                    value={props.state.quantity}
+                    placeholder="Quantity"
                 />
             </div>
         </div>

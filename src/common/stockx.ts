@@ -1,14 +1,14 @@
-import { CookieJar, Response } from 'request';
+import { Response } from 'request';
 import * as request from 'request-promise-native';
 import { InventoryItem, StockXSearchResponse, StockXProduct } from './types';
 
 export class StockX {
     // private jwtToken: string;
-    private jar: CookieJar;
+    // private jar: CookieJar;
     readonly baseURL: string;
 
     constructor() {
-        this.jar = request.jar();
+        // this.jar = request.jar();
         this.baseURL = 'https://stockx.com/api';
     }
 
@@ -61,10 +61,10 @@ export class StockX {
                     marketPrice: i.market.averageDeadstockPrice,
                     purchasePrice: 0,
                     size: '',
-                    image: i.media.smallImageUrl.replace("FFFFFF", "16161a")
+                    image: i.media.smallImageUrl.replace("FFFFFF", "16161a"),
+                    autoSync: true
                 }
             });
-            console.log(items);
             return items;
         }
         return [] as InventoryItem[];

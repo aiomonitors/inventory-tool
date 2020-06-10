@@ -3,9 +3,7 @@ import Modal from 'react-responsive-modal';
 import { InfoBox } from '../components/HomeComponents';
 import { TableItem, AddModal } from '../components/InvComponents';
 import Store from '../store/Store';
-import { getInventory, addItem } from '../store/StoreFuncs';
-import { ipcRenderer } from 'electron';
-import { InventoryItem } from '../../common/types';
+import { getInventory } from '../store/StoreFuncs';
 
 import '../styles/Inventory.scss';
 
@@ -30,42 +28,10 @@ const Inventory = () => {
     const closeAddModal = () => {
         setAddModalOpen(false);
     };
-    const addInventoryItem = async (item: InventoryItem) => {
-        const items = await ipcRenderer.sendSync('add-inventory-item', item);
-        store.set('inventory')(items);
-    };
 
     useEffect(() => {
         setItems(getInventory(store));
     }, [ store.get('inventory') ]);
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         addItem(store,
-    //             {
-    //               name: 'Jordan 1 Spiderman',
-    //               sku: 'CHDHD',
-    //               size: '8',
-    //               purchasePrice: 175,
-    //               marketPrice: 400,
-    //               category: 'Shoes'
-    //             })
-    //     }, 3000)
-    // }, [])
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         addInventoryItem({
-    //             "name": "Jordan 1 Spiderman",
-    //             "sku": "CHDHD",
-    //             "size": "8",
-    //             "purchasePrice": 175,
-    //             "marketPrice": 400,
-    //             "image": "https://stockx.imgix.net/Air-Jordan-1-Retro-High-Pine-Green-Black-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&auto=format,compress&q=90&dpr=2&trim=color&updated_at=1581447019",
-    //             "index" : Math.round(Math.random() * 1000).toString(),
-    //         });
-    //     }, 3000)
-    // }, []);
 
     return (
         <main className="inventory-page">
