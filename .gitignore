@@ -1,2 +1,4 @@
 /dist
 /node_modules
+src/main/classes/*.json
+src/common/*.json

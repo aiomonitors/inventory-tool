@@ -1,9 +1,10 @@
 'use strict'
 
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain, IpcMainEvent } from 'electron'
 import * as path from 'path'
 import { format as formatUrl } from 'url'
-import { data } from './classes/data';
+import { data } from '../common/data';
+import * as types from '../common/types';
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -59,6 +60,38 @@ ipcMain.on('maximize-main-window', () => {
   if (mainWindow !== null) {
     mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize()
   };
+});
+
+
+// Inventory item stuff
+ipcMain.on('delete-inventory-item', async (event: IpcMainEvent, arg: { index: string }) => {
+  data.deleteInventoryItem(arg.index);
+  event.returnValue = data.getInventory();
+});
+
+ipcMain.on('add-inventory-item', (event: IpcMainEvent, arg: types.InventoryItemForm) => {
+  const q = arg.quantity || 0;
+  if (q > 0) {
+    const items = [];
+    for (let i = 0; i < q; i++) {
+      // Make sure a new object is created
+      items.push({ ...arg });
+    }
+    data.addInventoryItem(items);
+  } else {
+    data.addInventoryItem(arg);
+  }
+  event.returnValue = data.getInventory();
+});
+
+ipcMain.on('calc-inventory-potential', (event: IpcMainEvent, arg: types.InventoryItem) => {
+  event.returnValue = data.getInventoryPotentialProfit();
+});
+
+ipcMain.on('sync-inventory-prices', async (event: IpcMainEvent, arg: null) => {
+  const items = await data.syncInventoryPrices();
+  console.log('synced')
+  mainWindow!.webContents.send('synced-inventory-prices', items);
 });
 
 // quit application when all windows are closed
